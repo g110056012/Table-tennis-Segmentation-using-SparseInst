@@ -1,0 +1,6 @@
+background
+person
+paddle
+table
+referee
+scoreboard

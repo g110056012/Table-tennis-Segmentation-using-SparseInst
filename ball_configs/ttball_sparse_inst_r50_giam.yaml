@@ -1,0 +1,74 @@
+# ResNet
+_BASE_: "ttball_Base-SparseInst.yaml"
+MODEL:
+  WEIGHTS: "table-tennis/output/GN_ResNet_ttball_sparse_inst_r50_giam/model_final.pth"           # WEIGHTS: "pretrained_models/R-50.pkl"    WEIGHTS: "pretrained_models/sparse_inst_r50_giam_ceaffc.pth"  # WEIGHTS: "table-tennis/output/testing11_ResNet_ttball_sparse_inst_r50_giam/model_final.pth"
+OUTPUT_DIR: "table-tennis/output/test_ResNeSt_ttball_sparse_inst_r50_giam"
+
+
+
+
+# # ResNet + SNL
+# _BASE_: "ttball_Base-SparseInst.yaml"
+
+# MODEL:
+#   NAME: 'EncoderDecoder'
+#   PRETRAINED: 'open-mmlab://resnet50_v1c'
+#   ENCODER:
+#     NAME: 'ResNet'
+#     DEPTH: 50
+#     OUT_FEATURES: ['res2', 'res3', 'res4', 'res5']
+#     STRIDES: [2, 2, 2, 1]
+#     DILATIONS: [1, 1, 2, 4]
+#     NORM: 'BN'
+#     NORM_EVAL: False
+#     STYLE: 'pytorch'
+#   DECODER:
+#     NAME: 'SNLHead'
+#     IN_CHANNELS: 2048
+#     IN_FEATURES: 'res5'
+#     CHANNELS: 512
+#     DROPOUT_RATIO: 0.1
+#     REDUCTION: 2
+#     USE_SCALE: True
+#     MODE: 'embedded_gaussian'
+#     NUM_CLASSES: 19
+#     NORM: 'BN'
+#     ALIGN_CORNERS: False
+#     LOSS_DECODE:
+#       NAME: 'CrossEntropyLoss'
+#       USE_SIGMOID: False
+#       LOSS_WEIGHT: 1.0
+#   AUXILIARY_HEAD:
+#     NAME: 'FCNHead'
+#     IN_CHANNELS: 1024
+#     IN_FEATURES: 'res4'
+#     CHANNELS: 256
+#     NUM_CONVS: 1
+#     CONCAT_INPUT: False
+#     DROPOUT_RATIO: 0.1
+#     NUM_CLASSES: 19
+#     NORM: 'BN'
+#     ALIGN_CORNERS: False
+#     LOSS_DECODE:
+#       NAME: 'CrossEntropyLoss'
+#       USE_SIGMOID: False
+#       LOSS_WEIGHT: 0.4
+
+#   WEIGHTS: "pretrained_models/sparse_inst_r50_giam_ceaffc.pth"           # WEIGHTS: "pretrained_models/R-50.pkl"
+# OUTPUT_DIR: "table-tennis/output/SNL_ResNet_ttball_sparse_inst_r50_giam"
+
+
+
+
+
+# # ResNeSt
+# _BASE_: "ttball_Base-SparseInst.yaml"
+# MODEL:
+#   BACKBONE:
+#     NAME: "build_resnest_fpn_backbone"                                      # NAME: "build_resnest_fpn_backbone"      build_resnest_backbone
+#   WEIGHTS: "pretrained_models/resnest50_detectron-255b5649.pth"          # WEIGHTS: "pretrained_models/resnest50_detectron-255b5649.pth"
+
+#   # FPN:
+#   #   NORM: "SyncBN"
+
+# OUTPUT_DIR: "table-tennis/output/testing2_ResNeSt_ttball_sparse_inst_r50_giam"

@@ -1,0 +1,46 @@
+# ball
+_BASE_: "Base-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "pretrained_models/mask_rcnn_R_50_FPN_syncbn_1x-4939bd58.pth"          # WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  MASK_ON: True
+  RESNETS:
+    DEPTH: 50
+    NORM: "FrozenBN"    # NORM: "SyncBN"    # FrozenBN : GPU num=1, SyncBN : GPU num>1 分佈式訓練
+  FPN:
+    NORM: "FrozenBN"    # NORM: "SyncBN"
+  ROI_BOX_HEAD:
+    NAME: "FastRCNNConvFCHead"
+    NUM_CONV: 4
+    NUM_FC: 1
+    NORM: "FrozenBN"    # NORM: "SyncBN"
+  ROI_MASK_HEAD:
+    NORM: "FrozenBN"    # NORM: "SyncBN"
+TEST:
+  PRECISE_BN:
+    ENABLED: True
+
+OUTPUT_DIR: "table-tennis/output/Mask-RCNN/ResNet_ttball_maskrcnn_r50"
+
+
+# # egg
+# _BASE_: "Base-RCNN-FPN.yaml"
+# MODEL:
+#   WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+#   MASK_ON: True
+#   RESNETS:
+#     DEPTH: 50
+#     NORM: "FrozenBN"    # NORM: "SyncBN"    # FrozenBN : GPU num=1, SyncBN : GPU num>1 分佈式訓練
+#   FPN:
+#     NORM: "FrozenBN"    # NORM: "SyncBN"
+#   ROI_BOX_HEAD:
+#     NAME: "FastRCNNConvFCHead"
+#     NUM_CONV: 4
+#     NUM_FC: 1
+#     NORM: "FrozenBN"    # NORM: "SyncBN"
+#   ROI_MASK_HEAD:
+#     NORM: "FrozenBN"    # NORM: "SyncBN"
+# TEST:
+#   PRECISE_BN:
+#     ENABLED: True
+
+# OUTPUT_DIR: "output/egg/test_ResNet_egg_maskrcnn_inst_r50"

@@ -1,0 +1,69 @@
+# ball
+_BASE_: "ResNest-Base-RCNN-FPN.yaml"
+MODEL:
+  # WEIGHTS: "https://s3.us-west-1.wasabisys.com/resnest/detectron/resnest50_detectron-255b5649.pth"
+  WEIGHTS: "pretrained_models/resnest50_detectron-255b5649.pth"
+  MASK_ON: True
+  RESNETS:
+    DEPTH: 50
+    STRIDE_IN_1X1: False
+    RADIX: 2
+    NORM: "FrozenBN"    # NORM: "SyncBN"    # FrozenBN : GPU num=1, SyncBN : GPU num>1 分佈式訓練
+  FPN:
+    NORM: "FrozenBN"    # NORM: "SyncBN"
+  ROI_BOX_HEAD:
+    NAME: "FastRCNNConvFCHead"
+    NUM_CONV: 4
+    NUM_FC: 1
+    NORM: "FrozenBN"    # NORM: "SyncBN"
+  ROI_MASK_HEAD:
+    NORM: "FrozenBN"    # NORM: "SyncBN"
+  PIXEL_MEAN: [123.68, 116.779, 103.939]
+  PIXEL_STD: [58.393, 57.12, 57.375]
+SOLVER:
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.02
+INPUT:
+  FORMAT: "RGB"
+TEST:
+  PRECISE_BN:
+    ENABLED: True
+
+OUTPUT_DIR: "output/ball/ResNeSt_ball_maskrcnn_inst_r50"
+
+
+
+
+# # egg
+# _BASE_: "ResNest-Base-RCNN-FPN.yaml"
+# MODEL:
+#   # WEIGHTS: "https://s3.us-west-1.wasabisys.com/resnest/detectron/resnest50_detectron-255b5649.pth"
+#   WEIGHTS: "pretrained_models/resnest50_detectron-255b5649.pth"
+#   MASK_ON: True
+#   RESNETS:
+#     DEPTH: 50
+#     STRIDE_IN_1X1: False
+#     RADIX: 2
+#     NORM: "FrozenBN"    # NORM: "SyncBN"    # FrozenBN : GPU num=1, SyncBN : GPU num>1 分佈式訓練
+#   FPN:
+#     NORM: "FrozenBN"    # NORM: "SyncBN"
+#   ROI_BOX_HEAD:
+#     NAME: "FastRCNNConvFCHead"
+#     NUM_CONV: 4
+#     NUM_FC: 1
+#     NORM: "FrozenBN"    # NORM: "SyncBN"
+#   ROI_MASK_HEAD:
+#     NORM: "FrozenBN"    # NORM: "SyncBN"
+#   PIXEL_MEAN: [123.68, 116.779, 103.939]
+#   PIXEL_STD: [58.393, 57.12, 57.375]
+# SOLVER:
+#   IMS_PER_BATCH: 16       # IMS_PER_BATCH: 16
+#   BASE_LR: 0.002         # BASE_LR: 0.02
+# INPUT:
+#   FORMAT: "RGB"
+# TEST:
+#   PRECISE_BN:
+#     ENABLED: True
+
+# OUTPUT_DIR: "output/egg/test_ResNeSt_egg_maskrcnn_inst_r50"
+

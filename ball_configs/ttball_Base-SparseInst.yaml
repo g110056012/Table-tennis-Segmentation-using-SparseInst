@@ -1,0 +1,99 @@
+# ResNet
+MODEL:
+  META_ARCHITECTURE: "SparseInst"
+  # WEIGHTS: "detectron2://ImageNetPretrained/torchvision/R-50.pkl"
+  PIXEL_MEAN: [123.675, 116.280, 103.530]
+  PIXEL_STD: [58.395, 57.120, 57.375]
+  BACKBONE:
+    FREEZE_AT: 0
+    NAME: "build_resnet_backbone"
+  RESNETS:
+    NORM: "FrozenBN"          # NORM: "FrozenBN"          NORM: "GN"
+    DEPTH: 50
+    STRIDE_IN_1X1: False
+    OUT_FEATURES: ["res3", "res4", "res5"]
+  SPARSE_INST:
+    ENCODER:
+      NAME: "InstanceContextEncoder"
+    DECODER:
+      NAME: "GroupIAMDecoder"
+DATASETS:
+  TRAIN: ("table-tennis_train",)   # TRAIN: ("coco_2017_train",)
+  TEST:  ("table-tennis_val",)      #  TEST:  ("coco_2017_val",)
+SOLVER:
+  IMS_PER_BATCH: 4                 # 64   8
+  BASE_LR: 0.00005                   # 0.00000625       0.00005
+  STEPS: (21000, 25000)                 # STEPS: (210000, 250000)         (6300, 7500)
+  MAX_ITER: 27000                      # MAX_ITER: 270000                   8100
+  WEIGHT_DECAY: 0.05                #　WEIGHT_DECAY: 0.05           WEIGHT_DECAY: 0.0001
+INPUT:
+  MIN_SIZE_TRAIN: (416, 448, 480, 512, 544, 576, 608, 640, 1080)                # (416, 448, 480, 512, 544, 576, 608, 640)
+  MAX_SIZE_TRAIN: 1920                # 853
+  MIN_SIZE_TEST: 1080                 # 640
+  MAX_SIZE_TEST: 1920                 # 853
+  FORMAT: "RGB"
+  MASK_FORMAT: "bitmask"
+TEST:
+  EVAL_PERIOD: 7330
+DATALOADER:
+  NUM_WORKERS: 6
+VERSION: 2
+
+
+
+
+
+
+
+# # ResNeSt
+# MODEL:
+#   META_ARCHITECTURE: "SparseInst"
+#   # WEIGHTS: "detectron2://ImageNetPretrained/torchvision/R-50.pkl"
+
+#   # MASK_ON: True
+
+#   PIXEL_MEAN: [123.675, 116.280, 103.530]
+#   PIXEL_STD: [58.395, 57.120, 57.375]
+#   BACKBONE:
+#     FREEZE_AT: 0
+#     # NAME: "build_resnet_backbone"
+#   RESNETS:
+#     DEPTH: 50
+#     STRIDE_IN_1X1: False
+#     RADIX: 2
+#     NORM: "FrozenBN"    # NORM: "SyncBN"    # FrozenBN : GPU num=1, SyncBN : GPU num>1 分佈式訓練
+#     OUT_FEATURES: ["res2", "res3", "res4", "res5"]      # OUT_FEATURES: ["res2", "res3", "res4", "res5"]
+#   # FPN:
+#   #   IN_FEATURES: ["res2", "res3", "res4", "res5"]
+#   # ANCHOR_GENERATOR:
+#   #   SIZES: [[32], [64], [128], [256], [512]]  # One size for each in feature map
+#   #   ASPECT_RATIOS: [[0.5, 1.0, 2.0]]  # Three aspect ratios (same for all in feature maps)
+
+
+#   SPARSE_INST:
+#     ENCODER:
+#       NAME: "InstanceContextEncoder"
+#     DECODER:
+#       NAME: "GroupIAMDecoder"
+# DATASETS:
+#   TRAIN: ("table-tennis_train",)   # TRAIN: ("coco_2017_train",)
+#   TEST:  ("table-tennis_val",)      #  TEST:  ("coco_2017_val",)
+# SOLVER:
+#   IMS_PER_BATCH: 16             # 64
+#   BASE_LR: 0.00005              # 0.00005    # 0.00000625
+#   STEPS: (6300, 7500)           # STEPS: (210000, 250000)      # STEPS: (4200, 5000)       STEPS: (6300, 7500)
+#   MAX_ITER: 8100                # MAX_ITER: 270000             # 5400                      MAX_ITER: 8100
+#   WEIGHT_DECAY: 0.05
+
+# INPUT:
+#   MIN_SIZE_TRAIN: (416, 448, 480, 512, 544, 576, 608, 640)
+#   MAX_SIZE_TRAIN: 853
+#   MIN_SIZE_TEST: 640
+#   MAX_SIZE_TEST: 853
+#   FORMAT: "RGB"
+#   MASK_FORMAT: "bitmask"
+# TEST:
+#   EVAL_PERIOD: 7330
+# DATALOADER:
+#   NUM_WORKERS: 6
+# VERSION: 2

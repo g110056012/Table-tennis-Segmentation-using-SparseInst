@@ -1,0 +1,38 @@
+_BASE_: "Base-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "pretrained_models/mask_cascade_rcnn_ResNeSt_101_FPN_syncBN_1x-62448b9c.pth"           # WEIGHTS: "https://s3.us-west-1.wasabisys.com/resnest/detectron/resnest101_detectron-486f69a8.pth"
+  MASK_ON: True
+  RESNETS:
+    DEPTH: 50                  # 50
+    STRIDE_IN_1X1: False
+    RADIX: 2
+    NORM: "FrozenBN"        # FrozenBN  # GN
+  FPN:
+    NORM: "FrozenBN"
+  ROI_HEADS:
+    NAME: CascadeROIHeads
+  ROI_BOX_HEAD:
+    NAME: "FastRCNNConvFCHead"
+    NUM_CONV: 4
+    NUM_FC: 1
+    NORM: "FrozenBN"
+    CLS_AGNOSTIC_BBOX_REG: True
+  ROI_MASK_HEAD:
+    NORM: "FrozenBN"
+  RPN:
+    POST_NMS_TOPK_TRAIN: 2000
+  PIXEL_MEAN: [123.68, 116.779, 103.939]
+  PIXEL_STD: [58.393, 57.12, 57.375]
+SOLVER:
+  IMS_PER_BATCH: 8
+  BASE_LR: 0.02
+INPUT:
+  RANDOM_FLIP:
+    "horizontal"
+  FORMAT: "RGB"
+TEST:
+  PRECISE_BN:
+    ENABLED: True
+
+
+OUTPUT_DIR: "table-tennis/output/Mask-RCNN/ResNeSt_ttball_Cas_r50_aug"
