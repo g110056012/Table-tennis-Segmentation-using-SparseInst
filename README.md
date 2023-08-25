@@ -14,11 +14,12 @@
 #### (Environment yaml):
     conda env create -f /path/to/environment.yml  
 
-#### 3. Config files setting
+### 3. Before Training
+#### Parameters setting
     /path/to/SparseInst/sparseinst/config.py
     cfg.MODEL.SPARSE_INST.DECODER.NUM_MASKS = 100
     cfg.MODEL.SPARSE_INST.DECODER.NUM_CLASSES = 80
-
+#### Config files setting
     /path/to/SparseInst/table-tennis/ball_configs/
 
 ### 4. Commmand Line:
