@@ -2,7 +2,7 @@
 
 ### 1. Refereeence sites:
 1. SparseInst github: https://github.com/hustvl/SparseInst
-2. ResNeSt github: https://github.com/chongruo/detectron2-ResNeSt
+2. ResNeSt github: [https://github.com/chongruo/detectron2-ResNeSt](https://github.com/zhanghang1989/ResNeSt)
 
 ### 2. Enviornments:
 #### SparseInst:
