@@ -21,7 +21,7 @@
 
     /path/to/SparseInst/table-tennis/ball_configs/
 
-### 3. Commmand Line:
+### 4. Commmand Line:
 #### Train model 
     python tools/ball_train_net.py --config-file table-tennis/ball_configs/ttball_sparse_inst_r50vd_dcn_giam_aug.yaml --num-gpu 1
 #### Test model 
